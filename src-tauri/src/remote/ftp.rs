@@ -1,29 +1,28 @@
 use super::{Entry, ProgressCb};
 use crate::state::Profile;
-use crate::util::{log, mtime_ms, posix_join};
+use crate::util::{log_sink, mtime_ms, posix_join, Sink};
 use std::str::FromStr;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::Arc;
 use suppaftp::async_native_tls::TlsConnector;
 use suppaftp::list::File as FtpFile;
 use suppaftp::tokio::{AsyncNativeTlsConnector, AsyncNativeTlsFtpStream};
-use tauri::AppHandle;
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
 
 pub struct FtpRemote {
     p: Profile,
     tag: String,
-    app: AppHandle,
+    sink: Sink,
     c: Option<AsyncNativeTlsFtpStream>,
     dead: Arc<AtomicBool>,
 }
 
 impl FtpRemote {
-    pub fn new(p: Profile, tag: &str, app: AppHandle) -> Self {
+    pub fn new(p: Profile, tag: &str, sink: Sink) -> Self {
         Self {
             p,
             tag: tag.to_string(),
-            app,
+            sink,
             c: None,
             dead: Arc::new(AtomicBool::new(false)),
         }
@@ -57,8 +56,8 @@ impl FtpRemote {
         let connector = AsyncNativeTlsConnector::from(tls);
         let domain = p.host.clone();
 
-        log(
-            &self.app,
+        log_sink(
+            &self.sink,
             &self.tag,
             format!("FTP {}:{} bağlanılıyor", p.host, port),
         );
@@ -102,7 +101,7 @@ impl FtpRemote {
 
         self.c = Some(c);
         self.dead.store(false, Ordering::SeqCst);
-        log(&self.app, &self.tag, "FTP oturumu açıldı");
+        log_sink(&self.sink, &self.tag, "FTP oturumu açıldı");
         Ok(())
     }
 

@@ -1,4 +1,4 @@
-use crate::util::{log, read_json, write_json};
+use crate::util::{log, log_sink, read_json, write_json, Sink};
 use serde_json::Value;
 use std::collections::HashMap;
 use std::path::Path;
@@ -96,7 +96,7 @@ pub fn verify_host(
     host: &str,
     port: u16,
     hash: &str,
-    app: &AppHandle,
+    sink: &Sink,
 ) -> Result<(), String> {
     let path = data_dir.join("known_hosts.json");
     let mut known: HashMap<String, String> = match read_json(&path) {
@@ -111,8 +111,8 @@ pub fn verify_host(
         if old == hash {
             return Ok(());
         }
-        log(
-            app,
+        log_sink(
+            sink,
             "ssh",
             "UYARI: sunucu anahtarı değişmiş! Bağlantı reddedildi.",
         );
@@ -128,8 +128,8 @@ pub fn verify_host(
     );
     write_json(&path, &value)?;
     let short: String = hash.chars().take(16).collect();
-    log(
-        app,
+    log_sink(
+        sink,
         "ssh",
         format!("Yeni sunucu anahtarı kaydedildi (SHA256 {}…)", short),
     );

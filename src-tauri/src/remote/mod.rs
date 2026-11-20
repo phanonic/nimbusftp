@@ -1,11 +1,14 @@
 pub mod ftp;
 pub mod sftp;
 
+#[cfg(test)]
+mod tests;
+
 use crate::state::Profile;
 use std::path::PathBuf;
 use std::sync::atomic::AtomicBool;
 use std::sync::Arc;
-use tauri::AppHandle;
+use crate::util::Sink;
 
 /// Reports the number of bytes transferred since the previous call.
 pub type ProgressCb = Arc<dyn Fn(u64) + Send + Sync>;
@@ -25,11 +28,11 @@ pub enum Remote {
 }
 
 impl Remote {
-    pub fn new(profile: Profile, tag: &str, app: AppHandle, data_dir: PathBuf) -> Self {
+    pub fn new(profile: Profile, tag: &str, sink: Sink, data_dir: PathBuf) -> Self {
         if profile.protocol == "sftp" {
-            Remote::Sftp(sftp::SftpRemote::new(profile, tag, app, data_dir))
+            Remote::Sftp(sftp::SftpRemote::new(profile, tag, sink, data_dir))
         } else {
-            Remote::Ftp(ftp::FtpRemote::new(profile, tag, app))
+            Remote::Ftp(ftp::FtpRemote::new(profile, tag, sink))
         }
     }
 

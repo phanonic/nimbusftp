@@ -3,6 +3,19 @@ use std::path::{Path, PathBuf};
 use std::sync::atomic::{AtomicI64, Ordering};
 use std::time::{SystemTime, UNIX_EPOCH};
 use tauri::Emitter;
+use std::sync::Arc;
+
+/// Uzak katmanın olay göndermek için kullandığı runtime-bağımsız arayüz.
+/// Testlerde MockRuntime AppHandle, üretimde Wry AppHandle verilebilir.
+pub trait EventSink: Send + Sync {
+    fn emit(&self, event: &str, payload: Value);
+}
+impl<R: tauri::Runtime> EventSink for tauri::AppHandle<R> {
+    fn emit(&self, event: &str, payload: Value) {
+        let _ = tauri::Emitter::emit(self, event, payload);
+    }
+}
+pub type Sink = Arc<dyn EventSink>;
 
 static LAST_TS: AtomicI64 = AtomicI64::new(0);
 
@@ -35,7 +48,16 @@ pub fn log(app: &tauri::AppHandle, tag: &str, m: impl AsRef<str>) {
         "m": m.as_ref().trim(),
         "time": now_ms(),
     });
-    let _ = app.emit("log", payload);
+    let _ = Emitter::emit(app, "log", payload);
+}
+
+pub fn log_sink(sink: &Sink, tag: &str, m: impl AsRef<str>) {
+    let payload = serde_json::json!({
+        "tag": tag,
+        "m": m.as_ref().trim(),
+        "time": now_ms(),
+    });
+    sink.emit("log", payload);
 }
 
 pub fn read_json(path: &Path) -> Value {

@@ -169,7 +169,7 @@ impl AppState {
             }
 
             async {
-                let mut remote = Remote::new(profile, key, app.clone(), self.data_dir.clone());
+                let mut remote = Remote::new(profile, key, Arc::new(app.clone()), self.data_dir.clone());
                 remote.connect().await?;
                 let shared: SharedRemote = Arc::new(Mutex::new(Some(remote)));
                 let mut guard = slot.lock().await;

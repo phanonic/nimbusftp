@@ -84,7 +84,7 @@ async fn dispatch(
             st.close_all(app).await;
             *st.profile.lock().await = Some(profile.clone());
 
-            let mut remote = Remote::new(profile.clone(), "main", app.clone(), st.data_dir.clone());
+            let mut remote = Remote::new(profile.clone(), "main", Arc::new(app.clone()), st.data_dir.clone());
             let outcome: Result<String, String> = async {
                 remote.connect().await?;
                 if profile.remote_dir.trim().is_empty() {

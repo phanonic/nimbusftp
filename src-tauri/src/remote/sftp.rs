@@ -1,7 +1,7 @@
 use super::{Entry, ProgressCb};
 use crate::sites::verify_host;
 use crate::state::Profile;
-use crate::util::log;
+use crate::util::{log_sink, Sink};
 use sha2::{Digest, Sha256};
 use ssh2::{Session, Sftp};
 use std::io::{Read, Write};
@@ -9,11 +9,9 @@ use std::net::TcpStream;
 use std::path::{Component, Path, PathBuf};
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::Arc;
-use tauri::AppHandle;
-
 pub struct SftpRemote {
     profile: Profile,
-    app: AppHandle,
+    sink: Sink,
     data_dir: PathBuf,
     tag: String,
     session: Option<Arc<Session>>,
@@ -22,10 +20,10 @@ pub struct SftpRemote {
 }
 
 impl SftpRemote {
-    pub fn new(profile: Profile, tag: &str, app: AppHandle, data_dir: PathBuf) -> Self {
+    pub fn new(profile: Profile, tag: &str, sink: Sink, data_dir: PathBuf) -> Self {
         Self {
             profile,
-            app,
+            sink,
             data_dir,
             tag: tag.to_string(),
             session: None,
@@ -44,14 +42,14 @@ impl SftpRemote {
 
     pub async fn connect(&mut self) -> Result<(), String> {
         let p = self.profile.clone();
-        let app = self.app.clone();
+        let sink = self.sink.clone();
         let data_dir = self.data_dir.clone();
         let tag = self.tag.clone();
 
         let (session, sftp) = tokio::task::spawn_blocking(move || {
             let port = p.port.unwrap_or(22);
-            log(
-                &app,
+            log_sink(
+                &sink,
                 &tag,
                 format!("SFTP {}:{} bağlanılıyor (kullanıcı: {})", p.host, port, p.user),
             );
@@ -66,7 +64,7 @@ impl SftpRemote {
             if let Some((raw, _kind)) = session.host_key() {
                 let digest = Sha256::digest(raw);
                 let hash = hex::encode(digest.as_slice());
-                verify_host(&data_dir, &p.host, port, &hash, &app)?;
+                verify_host(&data_dir, &p.host, port, &hash, &sink)?;
             }
 
             if !p.key_path.is_empty() {
@@ -105,7 +103,7 @@ impl SftpRemote {
         self.session = Some(session);
         self.sftp = Some(sftp);
         self.dead.store(false, Ordering::SeqCst);
-        log(&self.app, &self.tag, "SFTP oturumu açıldı");
+        log_sink(&self.sink, &self.tag, "SFTP oturumu açıldı");
         Ok(())
     }
 
