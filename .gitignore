@@ -4,6 +4,7 @@ node_modules/
 # Derleme çıktıları
 dist/
 dist-ui/
+dist-portable/
 src-tauri/target/
 src-tauri/gen/
 desktop.ini

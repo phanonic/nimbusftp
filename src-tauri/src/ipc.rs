@@ -64,6 +64,8 @@ async fn dispatch(
     args: &[Value],
 ) -> Result<Value, String> {
     match channel {
+        "app:version" => Ok(Value::String(app.package_info().version.to_string())),
+
         "conn:connect" => {
             let mut profile: Profile = serde_json::from_value(arg(args, 0)?.clone())
                 .map_err(|e| e.to_string())?;

@@ -580,6 +580,7 @@ $('#btn-theme').onclick = () => applyTheme(document.documentElement.dataset.them
   let t = 'dark'; try { t = localStorage.getItem('theme') || 'dark'; } catch {}
   applyTheme(t);
   render('remote');
+  try { $('#st-right').textContent = 'NimbusFTP ' + await call('app:version'); } catch {}
   try { S.sites = await call('sites:list'); } catch {}
   try { await load('local', await call('local:home')); } catch (e) { toast(e.message, 'err'); }
   renderTransfers();
