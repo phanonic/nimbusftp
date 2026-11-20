@@ -4,6 +4,8 @@ mod ipc;
 mod local;
 mod remote;
 mod sites;
+#[cfg(test)]
+mod sites_tests;
 mod state;
 mod transfer;
 mod util;

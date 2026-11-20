@@ -15,7 +15,7 @@ serde_json = "1"
 tokio = { version = "1", features = ["full"] }
 suppaftp = { version = "13", features = ["tokio-async-native-tls", "deprecated"] }
 ssh2 = "0.9"
-keyring = "3"
+keyring = { version = "3", features = ["windows-native"] }
 sha2 = "0.10"
 hex = "0.4"
 trash = "5"

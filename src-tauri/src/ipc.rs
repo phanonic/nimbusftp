@@ -3,7 +3,7 @@ use crate::remote::Remote;
 use crate::sites;
 use crate::state::{AppState, Profile};
 use crate::transfer;
-use crate::util::{is_safe_name, log, posix_join};
+use crate::util::{is_safe_name, log, posix_join, Sink};
 use serde_json::{json, Value};
 use std::sync::Arc;
 use tauri::AppHandle;
@@ -50,7 +50,8 @@ pub async fn ipc_call(
     app: AppHandle,
 ) -> Result<Value, String> {
     let st = state.inner().clone();
-    let response = match dispatch(&st, &app, &channel, &args).await {
+    let sink: Sink = Arc::new(app.clone());
+    let response = match dispatch(&st, &app, &sink, &channel, &args).await {
         Ok(data) => json!({ "ok": true, "data": data }),
         Err(error) => json!({ "ok": false, "error": error }),
     };
@@ -60,6 +61,7 @@ pub async fn ipc_call(
 async fn dispatch(
     st: &Arc<AppState>,
     app: &AppHandle,
+    sink: &Sink,
     channel: &str,
     args: &[Value],
 ) -> Result<Value, String> {
@@ -264,14 +266,14 @@ async fn dispatch(
         }
 
         "sites:list" => {
-            let loaded = sites::load_sites(&st.data_dir, app);
+            let loaded = sites::load_sites(&st.data_dir, sink);
             *st.sites.lock().await = loaded.clone();
             Ok(Value::Array(loaded))
         }
 
         "sites:save" => {
             let incoming = array_arg(args, 0)?.to_vec();
-            sites::save_sites(&st.data_dir, &incoming, app)?;
+            sites::save_sites(&st.data_dir, &incoming, sink)?;
             *st.sites.lock().await = sites::sanitized(&incoming);
             Ok(Value::Bool(true))
         }

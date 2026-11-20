@@ -1,9 +1,7 @@
-use crate::util::{log, log_sink, read_json, write_json, Sink};
+use crate::util::{log_sink, read_json, write_json, Sink};
 use serde_json::Value;
 use std::collections::HashMap;
 use std::path::Path;
-use tauri::AppHandle;
-
 const SERVICE: &str = "nimbusftp";
 
 fn account(site_id: &str, field: &str) -> String {
@@ -15,7 +13,7 @@ fn entry(site_id: &str, field: &str) -> Result<keyring::Entry, String> {
 }
 
 /// Read sites.json, restoring secrets from the OS keyring.
-pub fn load_sites(data_dir: &Path, app: &AppHandle) -> Vec<Value> {
+pub fn load_sites(data_dir: &Path, sink: &Sink) -> Vec<Value> {
     let raw = read_json(&data_dir.join("sites.json"));
     let mut sites: Vec<Value> = match raw {
         Value::Array(a) => a,
@@ -46,7 +44,7 @@ pub fn load_sites(data_dir: &Path, app: &AppHandle) -> Vec<Value> {
                         obj.insert(field.to_string(), Value::String(secret));
                     }
                 } else {
-                    log(app, "warn", format!("Keyring okunamadı ({field})"));
+                    log_sink(sink, "warn", format!("Keyring okunamadı ({field})"));
                 }
             }
         }
@@ -55,7 +53,7 @@ pub fn load_sites(data_dir: &Path, app: &AppHandle) -> Vec<Value> {
 }
 
 /// Persist sites.json with secret fields blanked out and stored in the keyring.
-pub fn save_sites(data_dir: &Path, sites: &[Value], app: &AppHandle) -> Result<(), String> {
+pub fn save_sites(data_dir: &Path, sites: &[Value], sink: &Sink) -> Result<(), String> {
     let mut stored = Vec::new();
     for site in sites {
         let mut obj = match site.as_object() {
@@ -77,10 +75,10 @@ pub fn save_sites(data_dir: &Path, sites: &[Value], app: &AppHandle) -> Result<(
                 match entry(&id, field) {
                     Ok(e) => {
                         if let Err(err) = e.set_password(&value) {
-                            log(app, "warn", format!("Keyring yazılamadı ({field}): {err}"));
+                            log_sink(sink, "warn", format!("Keyring yazılamadı ({field}): {err}"));
                         }
                     }
-                    Err(err) => log(app, "warn", format!("Keyring açılamadı: {err}")),
+                    Err(err) => log_sink(sink, "warn", format!("Keyring açılamadı: {err}")),
                 }
             }
             obj.insert(field.to_string(), Value::String(String::new()));
