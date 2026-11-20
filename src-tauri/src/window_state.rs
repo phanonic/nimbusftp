@@ -83,7 +83,9 @@ pub fn save(window: &WebviewWindow) {
         Ok(p) => p,
         Err(_) => return,
     };
-    let size = match window.outer_size() {
+    // set_size() iç alan boyutunu ayarlar; outer_size() kaydedilirse her
+    // açılışta başlık çubuğu/kernel kalınlığı kadar büyür.
+    let size = match window.inner_size() {
         Ok(s) => s,
         Err(_) => return,
     };

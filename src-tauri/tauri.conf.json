@@ -4,7 +4,10 @@
   "version": "2.0.0",
   "identifier": "app.nimbusftp",
   "build": {
-    "frontendDist": "../dist-ui"
+    "frontendDist": "../dist-ui",
+    "beforeBuildCommand": "npm run build",
+    "beforeDevCommand": "npm run dev",
+    "devUrl": "http://localhost:5173"
   },
   "app": {
     "windows": [
