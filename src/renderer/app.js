@@ -540,12 +540,18 @@ api.on('transfer:idle', (info) => {
 
 // ---------- Günlük ----------
 const logEl = $('#log');
-api.on('log', ({ tag, m }) => {
+const fmtLogTime = (t) => {
+  const d = new Date(t || Date.now());
+  const p = (n, w = 2) => String(n).padStart(w, '0');
+  return `${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}.${p(d.getMilliseconds(), 3)}`;
+};
+api.on('log', ({ tag, m, time }) => {
+  const ts = fmtLogTime(time);
   for (const line of m.split(/\r?\n/)) {
     if (!line) continue;
     const d = document.createElement('div');
     const cls = line.startsWith('>') ? 'out' : line.startsWith('<') ? 'in' : /hata|error|fail|UYARI/i.test(line) ? 'err' : '';
-    d.innerHTML = `<span class="t">[${esc(tag)}]</span> <span class="${cls}">${esc(line)}</span>`;
+    d.innerHTML = `<span class="ts">${esc(ts)}</span> <span class="t">[${esc(tag)}]</span> <span class="${cls}">${esc(line)}</span>`;
     logEl.appendChild(d);
   }
   while (logEl.childElementCount > 600) logEl.firstChild.remove();

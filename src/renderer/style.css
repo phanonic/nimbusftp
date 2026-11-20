@@ -86,7 +86,7 @@ td.n svg.i { color: var(--muted); } tr.dir td.n svg.i { color: var(--warn); } tr
 .summary { color: var(--muted); font-size: 12px; margin-right: 8px; }
 .tabpane { flex: 1; min-height: 0; display: flex; flex-direction: column; }
 #log { flex: 1; margin: 0; padding: 8px 12px; overflow: auto; font: 12px/1.5 "Cascadia Mono", Consolas, monospace; color: var(--muted); white-space: pre-wrap; user-select: text; }
-#log .out { color: var(--accent); } #log .in { color: var(--text); } #log .err { color: var(--danger); } #log .t { opacity: .5; }
+#log .out { color: var(--accent); } #log .in { color: var(--text); } #log .err { color: var(--danger); } #log .t { opacity: .5; } #log .ts { color: var(--muted); opacity: .8; }
 .bar { height: 7px; border-radius: 7px; background: var(--panel2); overflow: hidden; border: 1px solid var(--line); }
 .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); transition: width .15s; }
 .bar.done > i { background: var(--ok); } .bar.error > i { background: var(--danger); }
