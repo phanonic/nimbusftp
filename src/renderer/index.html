@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:">
+<title>NimbusFTP</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <header class="topbar">
+    <div class="brand">
+      <svg viewBox="0 0 32 32" width="26" height="26"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7c9bff"/><stop offset="1" stop-color="#37d9c8"/></linearGradient></defs><rect width="32" height="32" rx="8" fill="url(#g)"/><path d="M10 21.5a4.5 4.5 0 0 1-.4-8.98A6 6 0 0 1 21 11.6a4.2 4.2 0 0 1 .5 9.9H10z" fill="#fff" opacity=".95"/><path d="M16 14v7M13 17l3-3 3 3" stroke="#4b6bff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>NimbusFTP</span>
+    </div>
+    <button class="btn" id="btn-sites"></button>
+    <form class="quick" id="quick" autocomplete="off">
+      <select id="q-proto" title="Protokol">
+        <option value="ftp">FTP</option>
+        <option value="ftpes">FTPES (açık TLS)</option>
+        <option value="ftps">FTPS (örtük TLS)</option>
+        <option value="sftp">SFTP (SSH)</option>
+      </select>
+      <input id="q-host" placeholder="Sunucu  (örn. ftp.ornek.com)" spellcheck="false">
+      <input id="q-port" class="port" placeholder="Port" inputmode="numeric">
+      <input id="q-user" placeholder="Kullanıcı" spellcheck="false">
+      <input id="q-pass" type="password" placeholder="Parola">
+      <button class="btn primary" id="q-go" type="submit">Bağlan</button>
+    </form>
+    <button class="btn icon" id="btn-theme" title="Temayı değiştir"></button>
+  </header>
+
+  <main class="panes">
+    <section class="pane" id="pane-local"></section>
+    <section class="pane" id="pane-remote"></section>
+  </main>
+
+  <div class="splitter" id="splitter" title="Boyutlandır"></div>
+
+  <section class="bottom" id="bottom">
+    <div class="tabs">
+      <button class="tab active" data-tab="transfers">Aktarımlar <span class="badge" id="tr-badge">0</span></button>
+      <button class="tab" data-tab="log">Günlük</button>
+      <div class="grow"></div>
+      <span class="summary" id="tr-summary"></span>
+      <button class="btn sm" id="tr-cancel">Tümünü iptal et</button>
+      <button class="btn sm" id="tr-clear">Bitenleri temizle</button>
+    </div>
+    <div class="tabpane" id="tab-transfers"><div class="tbl-wrap"><table class="tr-table"><thead><tr><th style="width:42px"></th><th>Dosya</th><th style="width:90px">Boyut</th><th style="width:230px">İlerleme</th><th style="width:90px">Hız</th><th style="width:150px">Durum</th><th style="width:70px"></th></tr></thead><tbody id="tr-body"></tbody></table><div class="empty" id="tr-empty">Aktarım kuyruğu boş. Dosyaları bir panelden diğerine sürükleyin veya F5'e basın.</div></div></div>
+    <div class="tabpane hidden" id="tab-log"><pre id="log"></pre></div>
+  </section>
+
+  <footer class="status"><span id="st-left">Hazır</span><span class="grow"></span><span id="st-right">NimbusFTP 1.0</span></footer>
+</div>
+<div id="overlay" class="hidden"></div>
+<div id="ctx" class="hidden"></div>
+<div id="toasts"></div>
+<script src="app.js"></script>
+</body>
+</html>

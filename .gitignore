@@ -1,0 +1,14 @@
+# Bağımlılıklar
+node_modules/
+
+# Derleme çıktıları
+dist/
+
+# Paketlenmiş/arşivlenmiş çıktılar (kaynak değil)
+NimbusFTP-1.0.0-portable.exe
+NimbusFTP-kaynak.zip
+
+# Günlükler ve işletim sistemi dosyaları
+*.log
+.DS_Store
+Thumbs.db
