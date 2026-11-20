@@ -3,6 +3,8 @@ node_modules/
 
 # Derleme çıktıları
 dist/
+dist-ui/
+src-tauri/target/
 
 # Paketlenmiş/arşivlenmiş çıktılar (kaynak değil)
 NimbusFTP-1.0.0-portable.exe

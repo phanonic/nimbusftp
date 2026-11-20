@@ -1,18 +1,20 @@
 {
   "name": "nimbusftp",
   "version": "1.0.0",
-  "description": "Nimbus FTP - modern FTP/FTPS/SFTP client",
-  "main": "src/main.js",
+  "description": "Nimbus FTP - modern FTP/FTPS/SFTP client (Tauri v2)",
+  "private": true,
   "author": "Nimbus",
   "license": "MIT",
-  "build": {
-    "appId": "app.nimbusftp",
-    "productName": "NimbusFTP",
-    "files": ["src/**/*", "package.json"],
-    "win": { "target": [{"target":"portable","arch":["x64"]}], "signAndEditExecutable": false },
-    "portable": { "artifactName": "NimbusFTP-${version}-portable.exe" },
-    "directories": { "output": "dist" }
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "tauri": "tauri",
+    "tauri:dev": "tauri dev",
+    "tauri:build": "tauri build"
   },
-  "dependencies": { "basic-ftp": "*", "ssh2-sftp-client": "*" },
-  "devDependencies": { "electron": "*", "electron-builder": "*" }
+  "devDependencies": {
+    "@tauri-apps/api": "^2",
+    "@tauri-apps/cli": "^2",
+    "vite": "^7"
+  }
 }

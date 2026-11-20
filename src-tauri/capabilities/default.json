@@ -1,0 +1,6 @@
+{
+  "identifier": "default",
+  "description": "NimbusFTP default capability",
+  "windows": ["main"],
+  "permissions": ["core:default", "core:event:default"]
+}
