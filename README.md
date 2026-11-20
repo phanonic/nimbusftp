@@ -46,8 +46,15 @@ Rust bağımlılıkları `src-tauri/Cargo.lock` ile sabitlenmiştir.
 - `src-tauri/src/` — Rust arka uç (IPC, FTP/SFTP, aktarım kuyruğu, yerel dosya işlemleri)
 - `src-tauri/tauri.conf.json` — uygulama ve paketleme ayarları
 
+## Özellikler
+
+- **Dil:** Üst çubuktaki `TR / EN` seçicisi ile arayüz dili anında değişir (varsayılan Türkçe). Tercih `settings.json` içinde saklanır.
+- **Notepad'de aç / Klasörde göster:** Yerel panelde bir dosyaya sağ tıklayın. "Notepad uygulamasında aç" `Ayarlar` bölümünde belirttiğiniz editörle (varsayılan: `notepad.exe`) dosyayı açar; "Klasörde göster" dosyayı Explorer'da seçili halde gösterir.
+- **Otomatik bağlanma:** Site Yöneticisi'nde bir site için "Başlangıçta bu siteye bağlan" seçeneğini işaretleyin veya hızlı bağlantı çubuğundaki "Otomatik bağlan" kutusunu kullanın. Site seçeneği işaretliyse önceliklidir; ikisi birbirini dışlar. Hızlı bağlantı bilgileri ve parola güvenli şekilde saklanır.
+
 ## Notlar
 
 - Windows'ta dağıtım çıktısı **NSIS kurulum dosyası**dır; Tauri portable exe üretmez.
 - WebView2 çalışma zamanı gereklidir; Windows 11'de hazır gelir.
 - Harici dosya sürükleme (işletim sisteminden panele) henüz desteklenmiyor; paneller arası sürükleme çalışıyor.
+- Sunucu günlüğündeki ve bazı hata mesajlarındaki Türkçe metinler çevrilmemiştir; arayüz metinlerinin tamamı TR/EN desteklidir.

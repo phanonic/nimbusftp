@@ -20,13 +20,16 @@ svg.i { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-widt
 #app { height: 100vh; width: 100vw; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: 44px 1fr 6px var(--bottom-h, 240px) 26px; }
 
 /* Üst çubuk */
-.topbar { display: flex; align-items: center; gap: 10px; padding: 0 156px 0 14px; background: var(--top); border-bottom: 1px solid var(--line); -webkit-app-region: drag; }
+.topbar { display: flex; align-items: center; gap: 8px; padding: 0 14px; background: var(--top); border-bottom: 1px solid var(--line); -webkit-app-region: drag; }
 .topbar > * { -webkit-app-region: no-drag; }
 .brand { display: flex; align-items: center; gap: 9px; font-weight: 650; font-size: 14px; letter-spacing: .2px; margin-right: 4px; -webkit-app-region: drag; }
 .quick { display: flex; gap: 6px; flex: 1; min-width: 0; margin-left: 6px; }
 .quick input, .quick select { height: 28px; }
 .quick #q-host { flex: 1.6; min-width: 120px; } .quick #q-user { flex: 1; min-width: 80px; } .quick #q-pass { flex: 1; min-width: 80px; }
 .quick .port { width: 62px; }
+.quick-chk { display: flex; align-items: center; gap: 5px; white-space: nowrap; color: var(--muted); font-size: 11px; cursor: pointer; }
+.quick-chk input { width: 14px; height: 14px; margin: 0; accent-color: var(--accent); }
+#lang { width: 76px; flex: none; }
 input, select, textarea { background: var(--panel2); color: var(--text); border: 1px solid var(--line); border-radius: 7px; padding: 0 9px; font: inherit; outline: none; user-select: text; }
 input, select { height: 30px; }
 input:focus, select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--sel); }
@@ -48,7 +51,7 @@ select { padding-right: 4px; }
 .panes { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px; padding: 8px 8px 0; min-height: 0; }
 .pane { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; display: flex; flex-direction: column; min-width: 0; min-height: 0; overflow: hidden; position: relative; }
 .pane.active { border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); }
-.pane.dropping::after { content: "Bırakın"; position: absolute; inset: 0; display: grid; place-items: center; font-size: 18px; font-weight: 600; color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent); border: 2px dashed var(--accent); border-radius: 10px; pointer-events: none; }
+.pane.dropping::after { content: var(--drop-text, "Drop here"); position: absolute; inset: 0; display: grid; place-items: center; font-size: 18px; font-weight: 600; color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent); border: 2px dashed var(--accent); border-radius: 10px; pointer-events: none; }
 .pane-head { display: flex; align-items: center; gap: 8px; padding: 8px 10px 6px; }
 .pane-title { font-weight: 650; display: flex; align-items: center; gap: 8px; }
 .pill { font-size: 11px; padding: 2px 8px; border-radius: 99px; background: var(--panel2); color: var(--muted); border: 1px solid var(--line); max-width: 320px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -106,6 +109,12 @@ td.n svg.i { color: var(--muted); } tr.dir td.n svg.i { color: var(--warn); } tr
 .modal h3 { margin: 0; padding: 16px 20px 6px; font-size: 16px; }
 .modal .body { padding: 8px 20px 14px; overflow: auto; color: var(--muted); }
 .modal .body input { width: 100%; margin-top: 8px; }
+.modal .body label { display: block; color: var(--text); }
+.modal .body .hint { display: block; color: var(--muted); font-size: 12px; margin-top: 6px; }
+.modal .body .row { display: flex; gap: 6px; align-items: stretch; margin-top: 8px; }
+.modal .body .row input { flex: 1; min-width: 0; margin-top: 0; }
+.modal .body .row .btn { flex: none; height: 30px; }
+.sm-item .auto-dot { color: var(--ok); font-size: 10px; margin-left: 6px; }
 .modal .foot { display: flex; justify-content: flex-end; gap: 8px; padding: 12px 20px 16px; }
 .sm-layout { display: grid; grid-template-columns: 230px 1fr; flex: 1; min-height: 0; border-top: 1px solid var(--line); }
 .sm-list { border-right: 1px solid var(--line); display: flex; flex-direction: column; min-height: 0; }

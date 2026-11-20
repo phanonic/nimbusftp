@@ -14,20 +14,26 @@
       <span>NimbusFTP</span>
     </div>
     <button class="btn" id="btn-sites"></button>
+    <button class="btn icon" id="btn-settings" data-i18n-title="settings"></button>
     <form class="quick" id="quick" autocomplete="off">
-      <select id="q-proto" title="Protokol">
+      <select id="q-proto" data-i18n-title="protocol">
         <option value="ftp">FTP</option>
-        <option value="ftpes">FTPES (açık TLS)</option>
-        <option value="ftps">FTPS (örtük TLS)</option>
+        <option value="ftpes" data-i18n="ftpExplicit">FTPES (açık TLS)</option>
+        <option value="ftps" data-i18n="ftpImplicit">FTPS (örtük TLS)</option>
         <option value="sftp">SFTP (SSH)</option>
       </select>
-      <input id="q-host" placeholder="Sunucu  (örn. ftp.ornek.com)" spellcheck="false">
-      <input id="q-port" class="port" placeholder="Port" inputmode="numeric">
-      <input id="q-user" placeholder="Kullanıcı" spellcheck="false">
-      <input id="q-pass" type="password" placeholder="Parola">
-      <button class="btn primary" id="q-go" type="submit">Bağlan</button>
+      <input id="q-host" data-i18n-placeholder="serverPlaceholder" placeholder="Sunucu  (örn. ftp.ornek.com)" spellcheck="false">
+      <input id="q-port" class="port" data-i18n-placeholder="port" placeholder="Port" inputmode="numeric">
+      <input id="q-user" data-i18n-placeholder="user" placeholder="Kullanıcı" spellcheck="false">
+      <input id="q-pass" type="password" data-i18n-placeholder="password" placeholder="Parola">
+      <label class="quick-chk"><input type="checkbox" id="q-auto"><span data-i18n="autoConnect"></span></label>
+      <button class="btn primary" id="q-go" type="submit" data-i18n="connect">Bağlan</button>
     </form>
-    <button class="btn icon" id="btn-theme" title="Temayı değiştir"></button>
+    <select id="lang" data-i18n-title="language">
+      <option value="tr">Türkçe</option>
+      <option value="en">English</option>
+    </select>
+    <button class="btn icon" id="btn-theme" data-i18n-title="theme"></button>
   </header>
 
   <main class="panes">
@@ -35,22 +41,22 @@
     <section class="pane" id="pane-remote"></section>
   </main>
 
-  <div class="splitter" id="splitter" title="Boyutlandır"></div>
+  <div class="splitter" id="splitter" data-i18n-title="resize"></div>
 
   <section class="bottom" id="bottom">
     <div class="tabs">
-      <button class="tab active" data-tab="transfers">Aktarımlar <span class="badge" id="tr-badge">0</span></button>
-      <button class="tab" data-tab="log">Günlük</button>
+      <button class="tab active" data-tab="transfers"><span data-i18n="transfers">Aktarımlar</span> <span class="badge" id="tr-badge">0</span></button>
+      <button class="tab" data-tab="log" data-i18n="log">Günlük</button>
       <div class="grow"></div>
       <span class="summary" id="tr-summary"></span>
-      <button class="btn sm" id="tr-cancel">Tümünü iptal et</button>
-      <button class="btn sm" id="tr-clear">Bitenleri temizle</button>
+      <button class="btn sm" id="tr-cancel" data-i18n="cancelAll">Tümünü iptal et</button>
+      <button class="btn sm" id="tr-clear" data-i18n="clearDone">Bitenleri temizle</button>
     </div>
-    <div class="tabpane" id="tab-transfers"><div class="tbl-wrap"><table class="tr-table"><thead><tr><th style="width:42px"></th><th>Dosya</th><th style="width:90px">Boyut</th><th style="width:230px">İlerleme</th><th style="width:90px">Hız</th><th style="width:150px">Durum</th><th style="width:70px"></th></tr></thead><tbody id="tr-body"></tbody></table><div class="empty" id="tr-empty">Aktarım kuyruğu boş. Dosyaları bir panelden diğerine sürükleyin veya F5'e basın.</div></div></div>
+    <div class="tabpane" id="tab-transfers"><div class="tbl-wrap"><table class="tr-table"><thead><tr><th style="width:42px"></th><th data-i18n="file">Dosya</th><th style="width:90px" data-i18n="size">Boyut</th><th style="width:230px" data-i18n="progress">İlerleme</th><th style="width:90px" data-i18n="speed">Hız</th><th style="width:150px" data-i18n="status">Durum</th><th style="width:70px"></th></tr></thead><tbody id="tr-body"></tbody></table><div class="empty" id="tr-empty" data-i18n="emptyTransfers">Aktarım kuyruğu boş. Dosyaları bir panelden diğerine sürükleyin veya F5'e basın.</div></div></div>
     <div class="tabpane hidden" id="tab-log"><pre id="log"></pre></div>
   </section>
 
-  <footer class="status"><span id="st-left">Hazır</span><span class="grow"></span><span id="st-right">NimbusFTP</span></footer>
+  <footer class="status"><span id="st-left" data-i18n="ready">Hazır</span><span class="grow"></span><span id="st-right">NimbusFTP</span></footer>
 </div>
 <div id="overlay" class="hidden"></div>
 <div id="ctx" class="hidden"></div>

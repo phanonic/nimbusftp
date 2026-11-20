@@ -396,21 +396,23 @@ async fn progress(st: &Arc<AppState>, app: &AppHandle, id: i64, bytes: u64) {
     {
         let mut queue = st.queue.lock().await;
         if let Some(item) = queue.iter_mut().find(|i| i.id == id) {
-            item.done = bytes;
+            // ProgressCb reports a per-chunk delta, not a running total.
+            item.done = item.done.saturating_add(bytes);
             if item.t == 0 {
                 item.t = now;
                 item.b = 0;
             }
             if now - item.t >= 500 {
                 let elapsed = (now - item.t) as f64;
-                let instantaneous = (bytes.saturating_sub(item.b) as f64 * 1000.0) / elapsed;
+                let instantaneous =
+                    (item.done.saturating_sub(item.b) as f64 * 1000.0) / elapsed;
                 item.speed = if item.speed > 0.0 {
                     item.speed * 0.6 + instantaneous * 0.4
                 } else {
                     instantaneous
                 };
                 item.t = now;
-                item.b = bytes;
+                item.b = item.done;
             }
         }
     }

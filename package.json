@@ -1,6 +1,6 @@
 {
   "name": "nimbusftp",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "description": "Nimbus FTP - modern FTP/FTPS/SFTP client (Tauri v2)",
   "private": true,
   "author": "Nimbus",

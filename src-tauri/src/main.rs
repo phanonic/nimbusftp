@@ -3,6 +3,7 @@
 mod ipc;
 mod local;
 mod remote;
+mod settings;
 mod sites;
 #[cfg(test)]
 mod sites_tests;

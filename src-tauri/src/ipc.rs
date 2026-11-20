@@ -1,5 +1,6 @@
 use crate::local;
 use crate::remote::Remote;
+use crate::settings;
 use crate::sites;
 use crate::state::{AppState, Profile};
 use crate::transfer;
@@ -234,6 +235,29 @@ async fn dispatch(
             Ok(Value::Bool(true))
         }
 
+        "local:openWith" => {
+            let path = str_arg(args, 0)?;
+            let editor = str_arg(args, 1)?;
+            log(app, "editor", format!("> {editor} \"{path}\""));
+            let result = tokio::task::spawn_blocking(move || local::open_with(&path, &editor))
+                .await
+                .map_err(|e| e.to_string())?;
+            match &result {
+                Ok(()) => log(app, "editor", "< opened"),
+                Err(e) => log(app, "editor", format!("< {e}")),
+            }
+            result?;
+            Ok(Value::Bool(true))
+        }
+
+        "local:reveal" => {
+            let path = str_arg(args, 0)?;
+            tokio::task::spawn_blocking(move || local::reveal(&path))
+                .await
+                .map_err(|e| e.to_string())??;
+            Ok(Value::Bool(true))
+        }
+
         "local:join" => Ok(Value::String(local::join(
             &str_arg(args, 0)?,
             &str_arg(args, 1)?,
@@ -253,16 +277,49 @@ async fn dispatch(
         }
 
         "pick:dir" => {
-            let picked = tokio::task::spawn_blocking(|| {
-                rfd::FileDialog::new()
-                    .set_title("Klasör seç")
-                    .pick_folder()
+            let start = args.get(0).and_then(|v| v.as_str()).unwrap_or("").to_string();
+            let picked = tokio::task::spawn_blocking(move || {
+                let mut dialog = rfd::FileDialog::new().set_title("Klasör seç");
+                if !start.is_empty() {
+                    dialog = dialog.set_directory(&start);
+                }
+                dialog.pick_folder()
             })
             .await
             .map_err(|e| e.to_string())?;
             Ok(picked
                 .map(|p| Value::String(p.to_string_lossy().into_owned()))
                 .unwrap_or(Value::Null))
+        }
+
+        "pick:editor" => {
+            let start = args.get(0).and_then(|v| v.as_str()).unwrap_or("").to_string();
+            let picked = tokio::task::spawn_blocking(move || {
+                let mut dialog = rfd::FileDialog::new().set_title("Select editor application");
+                #[cfg(windows)]
+                {
+                    dialog = dialog.add_filter("Executable", &["exe", "com", "bat", "cmd"]);
+                }
+                if !start.is_empty() {
+                    dialog = dialog.set_directory(&start);
+                }
+                dialog.pick_file()
+            })
+            .await
+            .map_err(|e| e.to_string())?;
+            Ok(picked
+                .map(|p| Value::String(p.to_string_lossy().into_owned()))
+                .unwrap_or(Value::Null))
+        }
+
+        "settings:get" => Ok(serde_json::to_value(settings::load(&st.data_dir))
+            .map_err(|e| e.to_string())?),
+
+        "settings:set" => {
+            let next: settings::Settings = serde_json::from_value(arg(args, 0)?.clone())
+                .map_err(|e| e.to_string())?;
+            settings::save(&st.data_dir, &next)?;
+            Ok(Value::Bool(true))
         }
 
         "sites:list" => {

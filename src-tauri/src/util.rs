@@ -122,10 +122,15 @@ pub fn safe_remote_path(base: &str, name: &str) -> Option<String> {
     if !is_safe_name(name) {
         return None;
     }
-    let full = posix_join(base, name);
+    let base = base.trim_end_matches('/');
     let base = if base.is_empty() { "/" } else { base };
-    let rel = full.strip_prefix(base)?;
-    if rel.is_empty() || rel.starts_with('/') || rel.split('/').any(|s| s == "..") {
+    let full = posix_join(base, name);
+    // `str::strip_prefix` keeps the separator that joined `name` to `base`
+    // ("/home/user/file" -> "/file"), unlike the JS version's `posix.relative`.
+    // Trim it before validating, otherwise every non-root upload is rejected
+    // as if it escaped its destination directory.
+    let rel = full.strip_prefix(base)?.trim_start_matches('/');
+    if rel.is_empty() || rel.split('/').any(|s| s == "..") {
         return None;
     }
     Some(full)
@@ -191,4 +196,45 @@ pub fn drives() -> Vec<String> {
 
 pub fn data_file(data_dir: &Path, name: &str) -> PathBuf {
     data_dir.join(name)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn safe_remote_path_allows_files_in_non_root_directory() {
+        assert_eq!(
+            safe_remote_path("/home/user", "report.txt"),
+            Some("/home/user/report.txt".into())
+        );
+        assert_eq!(
+            safe_remote_path("/uploads", "my report.txt"),
+            Some("/uploads/my report.txt".into())
+        );
+        assert_eq!(
+            safe_remote_path("/home/user/", "report.txt"),
+            Some("/home/user/report.txt".into())
+        );
+    }
+
+    #[test]
+    fn safe_remote_path_allows_files_at_root() {
+        assert_eq!(
+            safe_remote_path("/", "report.txt"),
+            Some("/report.txt".into())
+        );
+        assert_eq!(
+            safe_remote_path("", "report.txt"),
+            Some("/report.txt".into())
+        );
+    }
+
+    #[test]
+    fn safe_remote_path_rejects_unsafe_names() {
+        assert_eq!(safe_remote_path("/home/user", ".."), None);
+        assert_eq!(safe_remote_path("/home/user", "../secret"), None);
+        assert_eq!(safe_remote_path("/home/user", "a/b"), None);
+        assert_eq!(safe_remote_path("/home/user", ""), None);
+    }
 }

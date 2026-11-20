@@ -1,0 +1,347 @@
+// UI localization. Backend log/diagnostic messages stay in their original
+// language; `trError` maps the most common IPC errors for the English UI.
+const DICT = {
+  tr: {
+    siteManager: 'Site Yöneticisi',
+    settings: 'Ayarlar',
+    protocol: 'Protokol',
+    ftpExplicit: 'FTPES (açık TLS)',
+    ftpImplicit: 'FTPS (örtük TLS)',
+    serverPlaceholder: 'Sunucu  (örn. ftp.ornek.com)',
+    port: 'Port',
+    user: 'Kullanıcı',
+    password: 'Parola',
+    connect: 'Bağlan',
+    autoConnect: 'Otomatik bağlan',
+    theme: 'Temayı değiştir',
+    resize: 'Boyutlandır',
+    language: 'Dil',
+    transfers: 'Aktarımlar',
+    log: 'Günlük',
+    cancelAll: 'Tümünü iptal et',
+    clearDone: 'Bitenleri temizle',
+    file: 'Dosya',
+    size: 'Boyut',
+    progress: 'İlerleme',
+    speed: 'Hız',
+    status: 'Durum',
+    emptyTransfers: 'Aktarım kuyruğu boş. Dosyaları bir panelden diğerine sürükleyin veya F5\'e basın.',
+    ready: 'Hazır',
+
+    myComputer: 'Bilgisayarım',
+    serverPane: 'Sunucu',
+    local: 'Yerel',
+    notConnected: 'Bağlı değil',
+    disconnect: 'Bağlantıyı kes',
+    disconnectShort: 'Kes',
+    upload: 'Yükle',
+    download: 'İndir',
+    parentFolder: 'Üst klasör (Backspace)',
+    home: 'Ev dizini',
+    chooseSourceFolder: 'Kaynak klasörü seç',
+    refresh: 'Yenile',
+    mkdir: 'Yeni klasör (F7)',
+    rename: 'Yeniden adlandır (F2)',
+    delete: 'Sil (Del)',
+    localPath: 'Yerel yol',
+    remotePath: 'Uzak yol',
+    name: 'Ad',
+    modified: 'Değiştirilme',
+    folderFileCount: '{n} klasör, {m} dosya',
+    selectedInfo: '{n} seçili · {size}',
+    dropHere: 'Bırakın',
+    notConnectedTitle: 'Sunucuya bağlı değil',
+    notConnectedHint: 'Üstteki hızlı bağlantı alanını kullanın<br>veya kayıtlı sitelerinizden birini seçin.',
+    openSiteManager: 'Site Yöneticisi\'ni aç',
+    emptyFolder: 'Bu klasör boş',
+    thisPc: 'Bu Bilgisayar',
+
+    connecting: '{host} sunucusuna bağlanılıyor…',
+    connected: 'Bağlandı: {host}',
+    connectedToast: '{host} sunucusuna bağlanıldı',
+    connectFailed: 'Bağlantı kurulamadı',
+    connectionIssue: 'Bağlantı sorunu — yenileyerek tekrar deneyin',
+    connectionError: 'Bağlantı hatası: {msg}',
+    certHint: '\nİpucu: Site Yöneticisi\'nde "Güvenilmeyen sertifikalara izin ver" seçeneğini kullanabilirsiniz.',
+    disconnected: 'Bağlantı kesildi',
+    invalidAddress: 'Geçersiz adres',
+    serverRequired: 'Sunucu adresi gerekli',
+    selectItem: 'Aktarmak için öğe seçin',
+    connectFirst: 'Önce bir sunucuya bağlanın',
+    openTargetFolder: 'Önce hedef klasörü açın',
+    overwriteTitle: 'Üzerine yazılsın mı?',
+    overwriteMsg: '{what} hedefte zaten var ve üzerine yazılacak.',
+    overwriteOk: 'Üzerine yaz',
+    transferSummary: '{a} etkin · {q} sırada · {d} tamamlandı · {e} hatalı',
+    transferDone: 'Aktarımlar tamamlandı',
+    transferSummaryErr: '{ok} dosya aktarıldı, {err} dosyada hata oluştu',
+
+    newSite: 'Yeni site',
+    siteName: 'Site adı',
+    hostLabel: 'Sunucu',
+    anonymous: 'Anonim giriş',
+    anonymousShort: 'anonim',
+    username: 'Kullanıcı adı',
+    keyPath: 'Özel anahtar dosyası (isteğe bağlı)',
+    browse: 'Gözat…',
+    passphrase: 'Anahtar parola ifadesi',
+    remoteStartDir: 'Uzak başlangıç dizini',
+    localStartFolder: 'Yerel başlangıç klasörü',
+    allowInvalidCert: 'Güvenilmeyen / kendinden imzalı sertifikalara izin ver (yalnızca FTPES/FTPS)',
+    siteAutoConnect: 'Başlangıçta bu siteye bağlan',
+    newButton: '+ Yeni',
+    duplicate: 'Çoğalt',
+    deleteButton: 'Sil',
+    close: 'Kapat',
+    save: 'Kaydet',
+    saveAndConnect: 'Kaydet ve bağlan',
+    saved: 'Siteler kaydedildi',
+    noSites: 'Henüz site yok',
+    selectSite: 'Soldan bir site seçin veya yeni ekleyin.',
+    unnamed: '(adsız)',
+    copySuffix: ' (kopya)',
+
+    newFolderTitle: 'Yeni klasör',
+    folderName: 'Klasör adı:',
+    create: 'Oluştur',
+    renameTitle: 'Yeniden adlandır',
+    newNameFor: '"{name}" için yeni ad:',
+    renameOk: 'Adlandır',
+    deleteTitle: 'Silinsin mi?',
+    deleteLocalMsg: '{what} Geri Dönüşüm Kutusu\'na taşınacak.',
+    deleteRemoteMsg: '{what} sunucudan {perm} silinecek.',
+    permanently: '<b>kalıcı olarak</b>',
+    deleteOk: 'Sil',
+    cancel: 'Vazgeç',
+    ok: 'Tamam',
+    oneItem: '<b>{name}</b>',
+    manyItems: '<b>{n} öğe</b>',
+
+    open: 'Aç',
+    uploadToServer: 'Sunucuya yükle',
+    downloadToPc: 'Bilgisayara indir',
+    openWithApp: 'Varsayılan uygulamayla aç',
+    viewInEditor: 'Notepad uygulamasında aç',
+    openFolder: 'Klasörde göster',
+    retry: 'Tekrar dene',
+    cancelShort: 'İptal',
+
+    queued: 'Sırada',
+    active: 'Aktarılıyor',
+    done: 'Tamamlandı',
+    error: 'Hata',
+    cancelled: 'İptal edildi',
+    errorWithMsg: '{label}: {msg}',
+
+    settingsTitle: 'Ayarlar',
+    editorPath: 'Notepad uygulaması',
+    editorPathHint: 'Dosyaları açmak için kullanılacak uygulama. Varsayılan: notepad.exe',
+    editorOpened: '{name} editörde açıldı',
+    largeFileTitle: 'Büyük dosya',
+    largeFileMsg: '{name} dosyası {size} boyutunda. Notepad ile açılması yavaş olabilir veya başarısız olabilir. Yine de açılsın mı?',
+    resetDefault: 'Varsayılana sıfırla',
+    savedSettings: 'Ayarlar kaydedildi',
+  },
+
+  en: {
+    siteManager: 'Site Manager',
+    settings: 'Settings',
+    protocol: 'Protocol',
+    ftpExplicit: 'FTPES (explicit TLS)',
+    ftpImplicit: 'FTPS (implicit TLS)',
+    serverPlaceholder: 'Server  (e.g. ftp.example.com)',
+    port: 'Port',
+    user: 'Username',
+    password: 'Password',
+    connect: 'Connect',
+    autoConnect: 'Auto-connect',
+    theme: 'Toggle theme',
+    resize: 'Resize',
+    language: 'Language',
+    transfers: 'Transfers',
+    log: 'Log',
+    cancelAll: 'Cancel all',
+    clearDone: 'Clear finished',
+    file: 'File',
+    size: 'Size',
+    progress: 'Progress',
+    speed: 'Speed',
+    status: 'Status',
+    emptyTransfers: 'Transfer queue is empty. Drag files between the panes or press F5.',
+    ready: 'Ready',
+
+    myComputer: 'My Computer',
+    serverPane: 'Server',
+    local: 'Local',
+    notConnected: 'Not connected',
+    disconnect: 'Disconnect',
+    disconnectShort: 'Disconnect',
+    upload: 'Upload',
+    download: 'Download',
+    parentFolder: 'Parent folder (Backspace)',
+    home: 'Home folder',
+    chooseSourceFolder: 'Choose source folder',
+    refresh: 'Refresh',
+    mkdir: 'New folder (F7)',
+    rename: 'Rename (F2)',
+    delete: 'Delete (Del)',
+    localPath: 'Local path',
+    remotePath: 'Remote path',
+    name: 'Name',
+    modified: 'Modified',
+    folderFileCount: '{n} folders, {m} files',
+    selectedInfo: '{n} selected · {size}',
+    dropHere: 'Drop here',
+    notConnectedTitle: 'Not connected to a server',
+    notConnectedHint: 'Use the quick connect bar above<br>or pick one of your saved sites.',
+    openSiteManager: 'Open Site Manager',
+    emptyFolder: 'This folder is empty',
+    thisPc: 'This PC',
+
+    connecting: 'Connecting to {host}…',
+    connected: 'Connected: {host}',
+    connectedToast: 'Connected to {host}',
+    connectFailed: 'Connection failed',
+    connectionIssue: 'Connection issue — refresh and try again',
+    connectionError: 'Connection error: {msg}',
+    certHint: '\nTip: enable "Allow invalid certificates" in Site Manager.',
+    disconnected: 'Disconnected',
+    invalidAddress: 'Invalid address',
+    serverRequired: 'Server address is required',
+    selectItem: 'Select an item to transfer',
+    connectFirst: 'Connect to a server first',
+    openTargetFolder: 'Open the destination folder first',
+    overwriteTitle: 'Overwrite?',
+    overwriteMsg: '{what} already exists at the destination and will be overwritten.',
+    overwriteOk: 'Overwrite',
+    transferSummary: '{a} active · {q} queued · {d} done · {e} failed',
+    transferDone: 'Transfers completed',
+    transferSummaryErr: '{ok} files transferred, {err} failed',
+
+    newSite: 'New site',
+    siteName: 'Site name',
+    hostLabel: 'Host',
+    anonymous: 'Anonymous login',
+    anonymousShort: 'anonymous',
+    username: 'Username',
+    keyPath: 'Private key file (optional)',
+    browse: 'Browse…',
+    passphrase: 'Key passphrase',
+    remoteStartDir: 'Remote start directory',
+    localStartFolder: 'Local start folder',
+    allowInvalidCert: 'Allow untrusted / self-signed certificates (FTPES/FTPS only)',
+    siteAutoConnect: 'Connect to this site on startup',
+    newButton: '+ New',
+    duplicate: 'Duplicate',
+    deleteButton: 'Delete',
+    close: 'Close',
+    save: 'Save',
+    saveAndConnect: 'Save and connect',
+    saved: 'Sites saved',
+    noSites: 'No sites yet',
+    selectSite: 'Select a site on the left or add a new one.',
+    unnamed: '(unnamed)',
+    copySuffix: ' (copy)',
+
+    newFolderTitle: 'New folder',
+    folderName: 'Folder name:',
+    create: 'Create',
+    renameTitle: 'Rename',
+    newNameFor: 'New name for "{name}":',
+    renameOk: 'Rename',
+    deleteTitle: 'Delete?',
+    deleteLocalMsg: '{what} will be moved to the Recycle Bin.',
+    deleteRemoteMsg: '{what} will be deleted from the server {perm}.',
+    permanently: '<b>permanently</b>',
+    deleteOk: 'Delete',
+    cancel: 'Cancel',
+    ok: 'OK',
+    oneItem: '<b>{name}</b>',
+    manyItems: '<b>{n} items</b>',
+
+    open: 'Open',
+    uploadToServer: 'Upload to server',
+    downloadToPc: 'Download to computer',
+    openWithApp: 'Open with default app',
+    viewInEditor: 'Open in editor',
+    openFolder: 'Show in File Explorer',
+    retry: 'Retry',
+    cancelShort: 'Cancel',
+
+    queued: 'Queued',
+    active: 'Transferring',
+    done: 'Done',
+    error: 'Error',
+    cancelled: 'Cancelled',
+    errorWithMsg: '{label}: {msg}',
+
+    settingsTitle: 'Settings',
+    editorPath: 'Editor application',
+    editorPathHint: 'Application used to open files. Default: notepad.exe',
+    editorOpened: '{name} opened in editor',
+    largeFileTitle: 'Large file',
+    largeFileMsg: '{name} is {size}. Opening it in Notepad may be slow or fail. Open it anyway?',
+    resetDefault: 'Reset to default',
+    savedSettings: 'Settings saved',
+  },
+};
+
+// Common backend error messages, shown verbatim in Turkish in the log.
+const ERROR_MAP = {
+  'Sunucuya bağlı değil': 'Not connected to a server',
+  'Sunucu adresi gerekli': 'Server address is required',
+  'SFTP için kullanıcı adı gerekli': 'Username is required for SFTP',
+  'Aktarım bağlantısı yok': 'No transfer connection',
+  'FTP bağlantısı yok': 'No FTP connection',
+  'Uzak bağlantı yok': 'No remote connection',
+  'Geçersiz dosya adı atlandı': 'Skipped invalid file name',
+  'Dosya bulunamadı': 'File not found',
+  'Yol bulunamadı': 'Path not found',
+  'Editör uygulaması ayarlanmadı': 'No editor application configured',
+  'Dosya çok büyük': 'File is too large',
+  'Notepad ile açılamaz. Başka bir editör seçin.': 'cannot be opened in Notepad. Choose a different editor.',
+  'Sunucu anahtarı değişti; bağlantı reddedildi': 'Server key changed; connection refused',
+};
+
+let lang = 'tr';
+
+export function setLang(value) {
+  if (DICT[value]) lang = value;
+  document.documentElement.lang = lang;
+  document.documentElement.style.setProperty('--drop-text', `"${t('dropHere')}"`);
+}
+
+export function getLang() {
+  return lang;
+}
+
+export function t(key, vars = {}) {
+  let text = (DICT[lang] && DICT[lang][key]) || DICT.tr[key] || key;
+  for (const [name, value] of Object.entries(vars)) {
+    text = text.split(`{${name}}`).join(String(value));
+  }
+  return text;
+}
+
+export function trError(message) {
+  if (lang === 'tr' || !message) return message;
+  let out = message;
+  for (const [tr, en] of Object.entries(ERROR_MAP)) {
+    out = out.split(tr).join(en);
+  }
+  return out;
+}
+
+/** Translate all static elements marked with data-i18n* attributes. */
+export function applyI18n(root = document) {
+  root.querySelectorAll('[data-i18n]').forEach((el) => {
+    el.textContent = t(el.dataset.i18n);
+  });
+  root.querySelectorAll('[data-i18n-title]').forEach((el) => {
+    el.title = t(el.dataset.i18nTitle);
+  });
+  root.querySelectorAll('[data-i18n-placeholder]').forEach((el) => {
+    el.placeholder = t(el.dataset.i18nPlaceholder);
+  });
+  setLang(lang);
+}
