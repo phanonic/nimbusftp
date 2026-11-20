@@ -1,6 +1,6 @@
 {
   "name": "nimbusftp",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Nimbus FTP - modern FTP/FTPS/SFTP client (Tauri v2)",
   "private": true,
   "author": "Nimbus",
@@ -10,7 +10,8 @@
     "build": "vite build",
     "tauri": "tauri",
     "tauri:dev": "tauri dev",
-    "tauri:build": "tauri build"
+    "tauri:build": "tauri build",
+    "version:set": "node scripts/bump-version.js"
   },
   "devDependencies": {
     "@tauri-apps/api": "^2",
