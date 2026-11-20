@@ -1,7 +1,7 @@
 import { invoke } from '@tauri-apps/api/core';
 import { listen } from '@tauri-apps/api/event';
 
-// Eski Electron köprüsü ile aynı arayüzü Tauri v2 üzerinde sağlar.
+// Tauri v2 IPC bridge exposing the window.api interface used by the renderer.
 const call = async (channel, ...args) => {
   const r = await invoke('ipc_call', { channel, args });
   if (!r || !r.ok) throw new Error((r && r.error) || 'Bilinmeyen hata');

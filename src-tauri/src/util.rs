@@ -41,7 +41,7 @@ pub fn mtime_ms(t: SystemTime) -> Option<i64> {
         .map(|d| d.as_millis() as i64)
 }
 
-/// Emit a "log" event with the same shape the Electron bridge produced.
+/// Emit a "log" event to the renderer.
 pub fn log(app: &tauri::AppHandle, tag: &str, m: impl AsRef<str>) {
     let payload = serde_json::json!({
         "tag": tag,
