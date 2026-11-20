@@ -41,9 +41,13 @@ Rust bağımlılıkları `src-tauri/Cargo.lock` ile sabitlenmiştir.
 
 ## Yapı
 
-- `src/renderer/` — HTML/CSS/JS arayüz
-- `src/renderer/bridge.js` — Tauri `invoke`/`listen` köprüsü (`window.api`)
+- `src/renderer/index.html` — arayüz giriş dosyası (Vite kökü)
+- `src/renderer/js/` — arayüz mantığı (`app.js`, `entry.js`, `bridge.js`)
+- `src/renderer/js/bridge.js` — Tauri `invoke`/`listen` köprüsü (`window.api`)
+- `src/renderer/i18n/index.js` — Türkçe / İngilizce metinler
+- `src/renderer/styles/main.css` — arayüz stilleri
 - `src-tauri/src/` — Rust arka uç (IPC, FTP/SFTP, aktarım kuyruğu, yerel dosya işlemleri)
+- `src-tauri/tests/` — Rust birim testleri
 - `src-tauri/tauri.conf.json` — uygulama ve paketleme ayarları
 
 ## Özellikler

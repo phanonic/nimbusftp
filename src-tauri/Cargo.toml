@@ -1,9 +1,11 @@
 [package]
 name = "nimbusftp"
-version = "2.0.10"
+version = "2.0.11"
 description = "Nimbus FTP - modern FTP/FTPS/SFTP client"
 authors = ["Nimbus"]
 edition = "2021"
+# Tests live in tests/ but are in-crate unit modules (they use private items).
+autotests = false
 
 [build-dependencies]
 tauri-build = { version = "2", features = [] }

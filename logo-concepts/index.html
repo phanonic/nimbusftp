@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NimbusFTP — Logo Konseptleri</title>
+<style>
+  :root {
+    --bg: #0b0e14;
+    --panel: #131822;
+    --line: #252d3f;
+    --text: #e5e9f2;
+    --muted: #8791a6;
+    --accent: #7c9bff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--text);
+    font: 14px/1.5 "Segoe UI", system-ui, sans-serif;
+  }
+  header {
+    padding: 32px 24px 8px;
+    text-align: center;
+  }
+  h1 { margin: 0; font-size: 24px; letter-spacing: .3px; }
+  header p { margin: 6px 0 0; color: var(--muted); }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+    max-width: 1160px;
+    margin: 24px auto;
+    padding: 0 24px 40px;
+  }
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+  .card h2 { margin: 0; font-size: 16px; }
+  .card .note { margin: -8px 0 0; color: var(--muted); font-size: 12px; text-align: center; }
+  .card img.big { width: 176px; height: 176px; display: block; }
+  .scales {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 22px;
+    padding: 14px;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, .22);
+  }
+  .scale { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .scale img { display: block; }
+  .scale span { color: var(--muted); font-size: 11px; }
+  .swatches { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
+  .sw { display: flex; align-items: center; gap: 5px; font-size: 10px; color: var(--muted); }
+  .sw i { width: 14px; height: 14px; border-radius: 4px; border: 1px solid rgba(255,255,255,.15); display: block; }
+  footer { text-align: center; color: var(--muted); padding-bottom: 40px; font-size: 12px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>NimbusFTP — Logo Konseptleri</h1>
+  <p>Dosya aktarımını doğrudan çağrıştıran soyut semboller · dört farklı renk paleti · metinsiz uygulama ikonları</p>
+</header>
+
+<main class="grid">
+  <section class="card">
+    <h2>01 · Violet</h2>
+    <p class="note">İki nokta arasında çift yönlü dosya aktarımı</p>
+    <img class="big" src="01-violet.svg" alt="Violet logo">
+    <div class="scales">
+      <div class="scale"><img src="01-violet.svg" width="64" height="64" alt=""><span>64 px</span></div>
+      <div class="scale"><img src="01-violet.svg" width="32" height="32" alt=""><span>32 px</span></div>
+      <div class="scale"><img src="01-violet.svg" width="16" height="16" alt=""><span>16 px</span></div>
+    </div>
+    <div class="swatches">
+      <span class="sw"><i style="background:#2E1A78"></i>#2E1A78</span>
+      <span class="sw"><i style="background:#8B5CF6"></i>#8B5CF6</span>
+      <span class="sw"><i style="background:#22D3EE"></i>#22D3EE</span>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>02 · Sunset</h2>
+    <p class="note">Dosya ve çevresinde döngüsel senkronizasyon oku</p>
+    <img class="big" src="02-sunset.svg" alt="Sunset logo">
+    <div class="scales">
+      <div class="scale"><img src="02-sunset.svg" width="64" height="64" alt=""><span>64 px</span></div>
+      <div class="scale"><img src="02-sunset.svg" width="32" height="32" alt=""><span>32 px</span></div>
+      <div class="scale"><img src="02-sunset.svg" width="16" height="16" alt=""><span>16 px</span></div>
+    </div>
+    <div class="swatches">
+      <span class="sw"><i style="background:#2B0B3F"></i>#2B0B3F</span>
+      <span class="sw"><i style="background:#FF6B35"></i>#FF6B35</span>
+      <span class="sw"><i style="background:#F72585"></i>#F72585</span>
+      <span class="sw"><i style="background:#FFD6A5"></i>#FFD6A5</span>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>03 · Forest</h2>
+    <p class="note">Dosya yığınının hedefe doğru akışı</p>
+    <img class="big" src="03-forest.svg" alt="Forest logo">
+    <div class="scales">
+      <div class="scale"><img src="03-forest.svg" width="64" height="64" alt=""><span>64 px</span></div>
+      <div class="scale"><img src="03-forest.svg" width="32" height="32" alt=""><span>32 px</span></div>
+      <div class="scale"><img src="03-forest.svg" width="16" height="16" alt=""><span>16 px</span></div>
+    </div>
+    <div class="swatches">
+      <span class="sw"><i style="background:#064E3B"></i>#064E3B</span>
+      <span class="sw"><i style="background:#34D399"></i>#34D399</span>
+      <span class="sw"><i style="background:#A3E635"></i>#A3E635</span>
+      <span class="sw"><i style="background:#D1FAE5"></i>#D1FAE5</span>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>04 · Graphite / Gold</h2>
+    <p class="note">Dosyanın içinden geçen aktarım oku</p>
+    <img class="big" src="04-graphite-gold.svg" alt="Graphite gold logo">
+    <div class="scales">
+      <div class="scale"><img src="04-graphite-gold.svg" width="64" height="64" alt=""><span>64 px</span></div>
+      <div class="scale"><img src="04-graphite-gold.svg" width="32" height="32" alt=""><span>32 px</span></div>
+      <div class="scale"><img src="04-graphite-gold.svg" width="16" height="16" alt=""><span>16 px</span></div>
+    </div>
+    <div class="swatches">
+      <span class="sw"><i style="background:#111827"></i>#111827</span>
+      <span class="sw"><i style="background:#FBBF24"></i>#FBBF24</span>
+      <span class="sw"><i style="background:#F5F3FF"></i>#F5F3FF</span>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>05 · Yellow</h2>
+    <p class="note">Forest motifi, sarı/kehribar paletle</p>
+    <img class="big" src="05-forest-yellow.svg" alt="Yellow forest logo">
+    <div class="scales">
+      <div class="scale"><img src="05-forest-yellow.svg" width="64" height="64" alt=""><span>64 px</span></div>
+      <div class="scale"><img src="05-forest-yellow.svg" width="32" height="32" alt=""><span>32 px</span></div>
+      <div class="scale"><img src="05-forest-yellow.svg" width="16" height="16" alt=""><span>16 px</span></div>
+    </div>
+    <div class="swatches">
+      <span class="sw"><i style="background:#3A2A06"></i>#3A2A06</span>
+      <span class="sw"><i style="background:#F59E0B"></i>#F59E0B</span>
+      <span class="sw"><i style="background:#FACC15"></i>#FACC15</span>
+      <span class="sw"><i style="background:#FDE047"></i>#FDE047</span>
+      <span class="sw"><i style="background:#FEF9C3"></i>#FEF9C3</span>
+    </div>
+  </section>
+</main>
+
+<footer>Beğendiğin tasarımı söyle; ikon setini ve arayüz logosunu ona göre güncelleyeyim.</footer>
+</body>
+</html>

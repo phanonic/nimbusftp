@@ -6,6 +6,7 @@ mod remote;
 mod settings;
 mod sites;
 #[cfg(test)]
+#[path = "../tests/sites.rs"]
 mod sites_tests;
 mod state;
 mod transfer;

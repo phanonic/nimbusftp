@@ -1,4 +1,4 @@
-import { t, trError, setLang, getLang, applyI18n } from './i18n.js';
+import { t, trError, setLang, getLang, applyI18n } from '../i18n/index.js';
 
 (() => {
 'use strict';

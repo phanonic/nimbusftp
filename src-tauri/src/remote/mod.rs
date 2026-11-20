@@ -2,6 +2,7 @@ pub mod ftp;
 pub mod sftp;
 
 #[cfg(test)]
+#[path = "../../tests/remote.rs"]
 mod tests;
 
 use crate::state::Profile;
