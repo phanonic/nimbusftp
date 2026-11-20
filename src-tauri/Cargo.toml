@@ -1,6 +1,6 @@
 [package]
 name = "nimbusftp"
-version = "2.0.5"
+version = "2.0.6"
 description = "Nimbus FTP - modern FTP/FTPS/SFTP client"
 authors = ["Nimbus"]
 edition = "2021"
