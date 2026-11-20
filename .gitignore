@@ -5,6 +5,7 @@ node_modules/
 dist/
 dist-ui/
 dist-portable/
+icon-options/
 src-tauri/target/
 src-tauri/gen/
 desktop.ini
