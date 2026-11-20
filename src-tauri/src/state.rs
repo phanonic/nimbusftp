@@ -31,7 +31,7 @@ pub struct Profile {
 /// One remote connection (browse or transfer), shared so reconnects can be deduped.
 pub type SharedRemote = Arc<Mutex<Option<Remote>>>;
 
-#[derive(Clone, Debug)]
+#[derive(Clone)]
 pub struct TransferItem {
     pub id: i64,
     pub dir: String,
